@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backgroud"
+            android:onClick="fecharTeclado"
+            tools:context=".activity.EditarVisita">
+
+                <TextView
+                    android:id="@+id/txtAgendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/editar"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/containerComponents"
+                    style="@style/ContainerComponents"
+                    android:layout_width="367dp"
+                    android:layout_height="267dp"
+                    android:layout_marginTop="68dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAgendar" />
+
+                <EditText
+                    android:id="@+id/edit_nome"
+                    style="@style/Edit_Text"
+                    android:layout_width="335dp"
+                    android:layout_height="68dp"
+                    android:layout_marginTop="12dp"
+                    android:drawableRight="@drawable/ic_person"
+                    android:hint="@string/nome_inst"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="@+id/containerComponents"
+                    app:layout_constraintStart_toStartOf="@+id/containerComponents"
+                    app:layout_constraintTop_toTopOf="@+id/containerComponents" />
+
+                <EditText
+                    android:id="@+id/edit_data"
+                    style="@style/Edit_Text"
+                    android:layout_width="335dp"
+                    android:layout_height="68dp"
+                    android:layout_marginTop="15dp"
+                    android:drawableRight="@drawable/ic_calendario"
+                    android:hint="@string/date"
+                    android:inputType="date"
+                    app:layout_constraintEnd_toEndOf="@+id/containerComponents"
+                    app:layout_constraintStart_toStartOf="@+id/containerComponents"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_nome" />
+
+                <EditText
+                    android:id="@+id/edit_hora"
+                    style="@style/Edit_Text"
+                    android:layout_width="335dp"
+                    android:layout_height="68dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawableRight="@drawable/ic_time"
+                    android:hint="@string/hour"
+                    android:inputType="time"
+                    app:layout_constraintBottom_toBottomOf="@+id/containerComponents"
+                    app:layout_constraintEnd_toEndOf="@+id/containerComponents"
+                    app:layout_constraintStart_toStartOf="@+id/containerComponents"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_data" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSalvarEdicao"
+                    style="@style/Button"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="56dp"
+                    android:text="@string/salvar"
+                    app:layout_constraintEnd_toStartOf="@+id/btnCancel"
+                    app:layout_constraintTop_toBottomOf="@id/containerComponents" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnCancel"
+                    style="@style/Button"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="56dp"
+                    android:layout_marginEnd="36dp"
+                    android:text="@string/cancel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/containerComponents" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

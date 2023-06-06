@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name" translatable="false">ProjetoFabrica</string>
+    <string name="entrar" translatable="false">Entrar</string>
+    <string name="text_cadastro" translatable="false">Crie uma conta clicando aqui</string>
+    <string name="title_cadastro" translatable="false">Cadastre-se</string>
+    <string name="cadastrar" translatable="false">Cadastrar</string>
+    <string name="sair" translatable="false">SAIR</string>
+    <string name="agenda" translatable="false">Agenda</string>
+    <string name="pesquisa">Pesquisar...</string>
+    <string name="visita">Agendar</string>
+    <string name="editar">Editar</string>
+    <string name="deletar">Deletar</string>
+    <string name="visitas_agendadas">Visitas Agendadas</string>
+    <string name="agendamento">Agendamento</string>
+    <string name="nome">Nome</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="nome_inst">Nome da Instituição</string>
+    <string name="salvar">Salvar</string>
+    <string name="cancel">Deletar</string>
+    <string name="date">Data</string>
+    <string name="hour">Hora</string>
+</resources>

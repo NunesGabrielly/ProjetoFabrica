@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "175493070407",
+    "project_id": "projeto-fabrica-c9d13",
+    "storage_bucket": "projeto-fabrica-c9d13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175493070407:android:1cc1a932cc787419bcbb62",
+        "android_client_info": {
+          "package_name": "com.example.projetofabrica"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175493070407-1l8uo5vaptfv2fplg953c3cnmlcl87q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChntfYNxfDyJXyZAEd2O-9HiniXnvuygY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175493070407-1l8uo5vaptfv2fplg953c3cnmlcl87q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
