@@ -2,11 +2,10 @@ package com.example.projetofabrica.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,18 +18,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EditarVisita extends AppCompatActivity {
 
     private EditText editDataVisita, editHoraVisita, editNomeVisita;
-    private Button btnSalvarEdicao;
+    private Button btnSalvarEdicao, btnCancel;
     private Visita visita;
     String userID;
+    String[] mensagens = {"Preencha todos os campos", "Salvo com sucesso"};
 
 
     @Override
@@ -43,6 +42,7 @@ public class EditarVisita extends AppCompatActivity {
         editDataVisita = findViewById(R.id.edit_data);
         editHoraVisita = findViewById(R.id.edit_hora);
         btnSalvarEdicao = findViewById(R.id.btnSalvarEdicao);
+        btnCancel = findViewById(R.id.btnCancel);
 
         Bundle bundle = getIntent().getExtras();
         Task<DocumentSnapshot> snapshot = FirebaseFirestore.getInstance().collection("Visitas").document(bundle.getString("agendaId")).get();
@@ -57,12 +57,49 @@ public class EditarVisita extends AppCompatActivity {
                 }
             }
         });
-
         btnSalvarEdicao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                salvarEdicao();
+                String nome = editNomeVisita.getText().toString();
+                String data = editDataVisita.getText().toString();
+                String hora = editHoraVisita.getText().toString();
+
+                if(nome.isEmpty() || data.isEmpty() || hora.isEmpty()){
+                    Snackbar snackbar = Snackbar.make(v, mensagens[0], Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                }else {
+                    Snackbar snackbar = Snackbar.make(v, mensagens[1], Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                    salvarEdicao();
+                    finish();
+                }
                 Intent intent =  new Intent(EditarVisita.this, FormAgenda.class);
+                startActivity(intent);
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseFirestore.getInstance().collection("Visitas").document(bundle.getString("agendaId")).delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(EditarVisita.this, "Visita cancelada com sucesso", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EditarVisita.this, "Falha ao cancelar visita", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                Intent intent = new Intent(EditarVisita.this, FormAgenda.class);
                 startActivity(intent);
             }
         });
@@ -84,6 +121,7 @@ public class EditarVisita extends AppCompatActivity {
             }
         });
     }
+
     public void fecharTeclado(View view){
         InputMethodManager fecharTeclado = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         fecharTeclado.hideSoftInputFromWindow(view.getWindowToken(), 0);

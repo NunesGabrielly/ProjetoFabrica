@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +14,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import com.example.projetofabrica.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
@@ -24,14 +29,19 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class FormAgendamento extends AppCompatActivity {
     private EditText editData, editHora;
     private Button btSalvar;
     private AutoCompleteTextView editNome;
     String userID;
+    String[] mensagens = {"Preencha todos os campos", "Salvo com sucesso"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +62,23 @@ public class FormAgendamento extends AppCompatActivity {
         btSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                salvarVisita();
+                String nome = editNome.getText().toString();
+                String data = editData.getText().toString();
+                String hora = editHora.getText().toString();
+
+                if(nome.isEmpty() || data.isEmpty() || hora.isEmpty()){
+                    Snackbar snackbar = Snackbar.make(view, mensagens[0], Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                }else {
+                    Snackbar snackbar = Snackbar.make(view, mensagens[1], Snackbar.LENGTH_SHORT);
+                    snackbar.setBackgroundTint(Color.WHITE);
+                    snackbar.setTextColor(Color.BLACK);
+                    snackbar.show();
+                    salvarVisita();
+                    finish();
+                }
                 Intent intent =  new Intent(FormAgendamento.this, FormAgenda.class);
                 startActivity(intent);
             }
