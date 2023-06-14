@@ -1,9 +1,11 @@
 package com.example.projetofabrica.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,6 +25,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+
 public class EditarVisita extends AppCompatActivity {
 
     private EditText editDataVisita, editHoraVisita, editNomeVisita;
@@ -31,7 +36,7 @@ public class EditarVisita extends AppCompatActivity {
     String userID;
     String[] mensagens = {"Preencha todos os campos", "Salvo com sucesso"};
 
-
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +69,12 @@ public class EditarVisita extends AppCompatActivity {
                 String data = editDataVisita.getText().toString();
                 String hora = editHoraVisita.getText().toString();
 
-                if(nome.isEmpty() || data.isEmpty() || hora.isEmpty()){
+                if (nome.isEmpty() || data.isEmpty() || hora.isEmpty()) {
                     Snackbar snackbar = Snackbar.make(v, mensagens[0], Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
-                }else {
+                } else {
                     Snackbar snackbar = Snackbar.make(v, mensagens[1], Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
@@ -77,7 +82,7 @@ public class EditarVisita extends AppCompatActivity {
                     salvarEdicao();
                     finish();
                 }
-                Intent intent =  new Intent(EditarVisita.this, FormAgenda.class);
+                Intent intent = new Intent(EditarVisita.this, FormAgenda.class);
                 startActivity(intent);
             }
         });
@@ -108,10 +113,15 @@ public class EditarVisita extends AppCompatActivity {
     private void salvarEdicao() {
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         VisitaDTO newVisita = new VisitaDTO(userID, editNomeVisita.getText().toString(), editDataVisita.getText().toString(), editHoraVisita.getText().toString());
+        String nome = editNomeVisita.toString();
+        String data = editDataVisita.toString();
+        String hora = editHoraVisita.toString();
+
         FirebaseFirestore.getInstance().collection("Visitas").document(visita.getId()).set(newVisita).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(EditarVisita.this, "Edição salva com sucesso", Toast.LENGTH_SHORT).show();
+                enviarEmailConfirmacao(nome, data, hora);
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -122,7 +132,20 @@ public class EditarVisita extends AppCompatActivity {
         });
     }
 
-    public void fecharTeclado(View view){
+    private void enviarEmailConfirmacao(String nome, String data, String hora) {
+
+        Intent intent = new Intent(Intent.ACTION_INSERT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra(CalendarContract.Events.TITLE, nome);
+        GregorianCalendar calDate = new GregorianCalendar(2023, 6, 14);
+        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                calDate.getTimeInMillis());
+        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                calDate.getTimeInMillis());
+        startActivity(intent);
+    }
+
+    public void fecharTeclado(View view) {
         InputMethodManager fecharTeclado = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         fecharTeclado.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }

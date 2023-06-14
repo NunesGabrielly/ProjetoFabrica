@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">ProjetoFabrica</string>
+    <string name="app_name" translatable="false">ADL</string>
     <string name="entrar" translatable="false">Entrar</string>
     <string name="text_cadastro" translatable="false">Crie uma conta clicando aqui</string>
     <string name="title_cadastro" translatable="false">Cadastre-se</string>
