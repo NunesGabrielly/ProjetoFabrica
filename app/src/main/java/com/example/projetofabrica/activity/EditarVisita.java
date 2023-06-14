@@ -136,9 +136,9 @@ public class EditarVisita extends AppCompatActivity {
 
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setType("vnd.android.cursor.item/event");
-        intent.putExtra(CalendarContract.Events.TITLE, nome);
+        intent.putExtra(CalendarContract.Events.TITLE, "Visita " + nome);
         GregorianCalendar calDate = new GregorianCalendar(2023, 6, 14);
-        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY,
                 calDate.getTimeInMillis());
         intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
                 calDate.getTimeInMillis());
