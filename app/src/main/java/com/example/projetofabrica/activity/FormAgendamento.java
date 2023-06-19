@@ -16,7 +16,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import com.example.projetofabrica.R;
-import com.example.projetofabrica.utils.DateTextWatcher;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,8 +57,6 @@ public class FormAgendamento extends AppCompatActivity {
         editData = findViewById(R.id.edit_data);
         editHora = findViewById(R.id.edit_hora);
         btSalvar = findViewById(R.id.bt_salvar);
-
-        editData.addTextChangedListener(new DateTextWatcher(editData));
 
         editNome = (AutoCompleteTextView) findViewById(R.id.edit_nome);
         String[] countries = getResources().getStringArray(R.array.instituicoes_array);

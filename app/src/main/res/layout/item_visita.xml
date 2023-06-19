@@ -21,15 +21,19 @@
                 android:id="@+id/textDataVisita"
                 android:layout_width="197dp"
                 android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Data 12/07/2025"
                 android:textColor="@color/black"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/textHoraVisita"
                 android:layout_width="194dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Hora 20:50"
+                android:textSize="15sp" />
 
         </LinearLayout>
 

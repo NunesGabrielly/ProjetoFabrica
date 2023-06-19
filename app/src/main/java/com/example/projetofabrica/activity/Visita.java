@@ -79,5 +79,14 @@ public class Visita implements Parcelable {
     public void setHora(String hora) {
         this.hora = hora;
     }
+    @Override
+    public String toString() {
+        return "Visita{" +
+                "id=" + id +
+                ", nome=" + nome + '\'' +
+                ", data='" + data + '\'' +
+                ", hora='" + hora + '\'' +
+                '}';
+    }
 }
 
